@@ -38,7 +38,6 @@ class CloneHour {
   }
   addMinute(minute) {
     let totalMinute = this.minute + minute;
-    console.log(totalMinute);
     if (totalMinute >= 60) {
       this.addHour(Math.floor(totalMinute / 60));
       this.minute = totalMinute % 60;
@@ -82,7 +81,7 @@ class CloneHour {
       .padStart(2, "0")}:${this.second.toString().padStart(2, "0")}`;
   }
 
-  getInDay() {
+  getInTextDay() {
     let hour = this.hour % 24;
     let day = Math.floor(this.hour / 24);
 
@@ -138,5 +137,14 @@ function Hour(...arguments) {
   return new CloneHour(...arguments);
 }
 
-const heure1 = new Hour("1:30:30");
+const heure1 = new Hour("9:30:30");
 const heure2 = new Hour("15:30:34");
+
+console.log(heure1.getInTextHour()); //09:30:30
+console.log(heure1.getInTextDay()); //0jour, 09 heures, 30 minutes, 30 secondes
+console.log(Hour(1.5)); //{ hour: 1, minute: 30, second: 0 }
+console.log(+Hour(1.5)); //1.5
+console.log(heure1 + heure2); //25.017777777777777
+console.log(Hour(heure1 + heure2)); //{ hour: 25, minute: 1, second: 4 }
+console.log(Hour(heure1 + heure2).getInTextDay()); //1jour, 01 heures, 01 minutes, 04 secondes
+console.log(heure1.format("[Il est] HHhmm et ss [secondes]")); //Il est 09h30 et 30 secondes
