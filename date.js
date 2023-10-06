@@ -66,7 +66,17 @@ class CloneHour {
   getSecond() {
     return this.second;
   }
+  getInSecond() {
+    return this.hour * 60 * 60 + this.minute * 60 + this.second;
+  }
+  getInMinute() {
+    return this.hour * 60 + this.minute + this.second / 60;
+  }
   getInHour() {
+    return this.hour + this.minute / 60 + this.second / 60 / 60;
+  }
+
+  getInTextHour() {
     return `${this.hour.toString().padStart(2, "0")}:${this.minute
       .toString()
       .padStart(2, "0")}:${this.second.toString().padStart(2, "0")}`;
@@ -128,17 +138,5 @@ function Hour(...arguments) {
   return new CloneHour(...arguments);
 }
 
-//let heure1 = Hour();
-//let heure2 = Hour("12:46:43");
-//let heure3 = Hour("8:14:45");
-//console.log(Hour(heure1 + heure2 + heure3).format("HH[salut]mm et ss[s]"));
-
-//console.log("HH[salHHut]m[HH]m et ss[s]".match(/s(?![^[]]*])/g));
-
-//let text = "salut[il est ]HHhmm[ et ]ss[ secondes]";
-
-//console.log("salut[il est ]HHhmm[ et ]ss[ secondes]".match(/(?:\[[^\[]*\])/g));
-//\{\{.*?\}\}
-//text.match(/(?<!\[)HH(?![\w\s]*[\]])/g)
-
-//console.log(Hour(762).getInDay());
+const heure1 = new Hour("1:30:30");
+const heure2 = new Hour("15:30:34");
