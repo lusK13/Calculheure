@@ -1,4 +1,4 @@
-class CloneHour {
+class Hour {
   hour = 0;
   minute = 0;
   second = 0;
@@ -80,7 +80,18 @@ class CloneHour {
       .toString()
       .padStart(2, "0")}:${this.second.toString().padStart(2, "0")}`;
   }
+  toDayObject() {
+    let hour = this.hour % 24;
+    let day = Math.floor(this.hour / 24);
 
+    return { day, hour, minute: this.minute, second: this.second };
+  }
+  getInDay() {
+    let hour = (this.hour % 24) / 24;
+    let day = Math.floor(this.hour / 24);
+
+    return day + hour;
+  }
   getInTextDay() {
     let hour = this.hour % 24;
     let day = Math.floor(this.hour / 24);
@@ -130,21 +141,21 @@ class CloneHour {
 }
 
 /**
- * @typedef {CloneHour}
- * @returns {Hour}
+ * @typedef {Hour}
+ * @returns {CalculHeure}
  */
-function Hour(...arguments) {
-  return new CloneHour(...arguments);
+function CalculHeure(...arguments) {
+  return new Hour(...arguments);
 }
 
-const heure1 = new Hour("9:30:30");
-const heure2 = new Hour("15:30:34");
+const heure1 = new CalculHeure("9:30:30");
+const heure2 = new CalculHeure("15:30:34");
 
 console.log(heure1.getInTextHour()); //09:30:30
 console.log(heure1.getInTextDay()); //0jour, 09 heures, 30 minutes, 30 secondes
-console.log(Hour(1.5)); //{ hour: 1, minute: 30, second: 0 }
-console.log(+Hour(1.5)); //1.5
+console.log(CalculHeure(1.5)); //{ hour: 1, minute: 30, second: 0 }
+console.log(+CalculHeure(1.5)); //1.5
 console.log(heure1 + heure2); //25.017777777777777
-console.log(Hour(heure1 + heure2)); //{ hour: 25, minute: 1, second: 4 }
-console.log(Hour(heure1 + heure2).getInTextDay()); //1jour, 01 heures, 01 minutes, 04 secondes
+console.log(CalculHeure(heure1 + heure2)); //{ hour: 25, minute: 1, second: 4 }
+console.log(CalculHeure(heure1 + heure2).getInTextDay()); //1jour, 01 heures, 01 minutes, 04 secondes
 console.log(heure1.format("[Il est] HHhmm et ss [secondes]")); //Il est 09h30 et 30 secondes
