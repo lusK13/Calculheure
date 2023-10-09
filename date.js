@@ -15,15 +15,15 @@ class Hour {
     let regexM = /(\d+):(\d{2})/;
     let regexH = /(\d+)/;
     if (regexS.test(hour)) {
-      this.hour = Number(regexS.exec(hour)[1]);
-      this.minute = Number(regexS.exec(hour)[2]);
-      this.second = Number(regexS.exec(hour)[3]);
+      this.addHour(Number(regexS.exec(hour)[1]));
+      this.addMinute(Number(regexS.exec(hour)[2]));
+      this.addSecond(Number(regexS.exec(hour)[3]));
     } else if (regexM.test(hour)) {
-      this.hour = Number(regexM.exec(hour)[1]);
-      this.minute = Number(regexM.exec(hour)[2]);
+      this.addHour(Number(regexM.exec(hour)[1]));
+      this.addMinute(Number(regexM.exec(hour)[2]));
       this.second = 0;
     } else if (regexH.test(hour)) {
-      this.hour = Math.floor(hour);
+      this.addHour(Math.floor(hour));
       const decimHour = Number(hour) - this.hour;
       const tempSec = (Math.ceil(decimHour * 60 * 100) * 60) / 100;
       this.addSecond(tempSec | 0);
