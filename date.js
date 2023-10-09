@@ -8,6 +8,9 @@ class Hour {
       hour =
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
+    this.reconizer(hour);
+  }
+  reconizer(hour) {
     let regexS = /(\d+):(\d{2}):(\d{2})/;
     let regexM = /(\d+):(\d{2})/;
     let regexH = /(\d+)/;
@@ -20,18 +23,12 @@ class Hour {
       this.minute = Number(regexM.exec(hour)[2]);
       this.second = 0;
     } else if (regexH.test(hour)) {
-      this.hour = Number(regexH.exec(hour)[1]);
-
-      const tempSec =
-        (Math.ceil(
-          Number("0." + regexH.exec(hour).input.split(".")[1]) * 60 * 100
-        ) *
-          60) /
-        100;
+      this.hour = Math.floor(hour);
+      const decimHour = Number(hour) - this.hour;
+      const tempSec = (Math.ceil(decimHour * 60 * 100) * 60) / 100;
       this.addSecond(tempSec | 0);
     }
   }
-
   addHour(hour) {
     this.hour += hour;
     return this;
@@ -106,7 +103,7 @@ class Hour {
   }
 
   valueOf() {
-    return this.hour + this.minute / 60 + this.second / 60 / 60;
+    return this.getInHour();
   }
   format(format) {
     let newFormat = format;
